@@ -1,152 +1,209 @@
 @import url(/./config/custom.css);
 @import url("https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap");
 
+/* =========================
+   ROOT COLORS (SPACE PALETTE)
+========================= */
 :root {
   --background-color: #050816;
-  --card-color: rgba(15, 23, 42, 0.8);
+  --card-color: rgba(10, 14, 30, 0.55);
   --text-color: #ffffff;
   --accent-color: #00d9ff;
   --accent2-color: #7c3aed;
+  --accent3-color: #ff2bd6;
 }
 
-/* Scrollbar */
-::-webkit-scrollbar {
-  width: 10px;
-}
-
-::-webkit-scrollbar-thumb {
-  background: linear-gradient(var(--accent-color), var(--accent2-color));
-  border-radius: 10px;
-}
-
-/* Global */
+/* =========================
+   GLOBAL
+========================= */
 * {
   font-family: "Orbitron", sans-serif;
   box-sizing: border-box;
 }
 
 body {
-  background: radial-gradient(circle at top, #111827 0%, #050816 60%);
-  color: var(--text-color);
   margin: 0;
-  overflow-x: hidden;
-  user-select: none;
-  position: relative;
   min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--text-color);
+
+  /* deep space + nebula layers */
+  background:
+    radial-gradient(circle at 20% 20%, rgba(124,58,237,0.25), transparent 40%),
+    radial-gradient(circle at 80% 30%, rgba(0,217,255,0.18), transparent 45%),
+    radial-gradient(circle at 50% 80%, rgba(255,43,214,0.10), transparent 50%),
+    linear-gradient(180deg, #02040a 0%, #050816 55%, #02010a 100%);
 }
 
-/* Animated Stars */
-.stars,
+/* =========================
+   STAR LAYERS
+========================= */
+.stars {
+  position: fixed;
+  inset: 0;
+  background:
+    url("https://www.transparenttextures.com/patterns/stardust.png") repeat,
+    url("https://www.transparenttextures.com/patterns/dots.png") repeat;
+  opacity: 0.6;
+  animation: driftStars 160s linear infinite;
+  z-index: -3;
+}
+
 .twinkling {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
+  inset: 0;
+  background: radial-gradient(circle, rgba(255,255,255,0.4) 1px, transparent 1px);
+  background-size: 120px 120px;
+  opacity: 0.25;
+  animation: twinkle 6s ease-in-out infinite;
   z-index: -2;
 }
 
-.stars {
-  background: transparent
-    url("https://www.transparenttextures.com/patterns/stardust.png")
-    repeat;
-  animation: moveStars 120s linear infinite;
+/* optional nebula blur layer (add div.nebula in HTML if you want) */
+.nebula {
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(circle at 30% 60%, rgba(124,58,237,0.25), transparent 55%),
+    radial-gradient(circle at 70% 40%, rgba(0,217,255,0.20), transparent 60%),
+    radial-gradient(circle at 50% 50%, rgba(255,43,214,0.10), transparent 65%);
+  filter: blur(60px);
+  opacity: 0.7;
+  z-index: -4;
 }
 
-.twinkling {
-  background: transparent
-    url("https://www.transparenttextures.com/patterns/dark-mosaic.png")
-    repeat;
-  opacity: 0.2;
-  animation: twinkle 8s ease-in-out infinite alternate;
-}
-
-@keyframes moveStars {
-  from {
-    transform: translateY(0);
-  }
-  to {
-    transform: translateY(-2000px);
-  }
+/* =========================
+   ANIMATIONS
+========================= */
+@keyframes driftStars {
+  from { transform: translateY(0); }
+  to { transform: translateY(-3000px); }
 }
 
 @keyframes twinkle {
-  from {
-    opacity: 0.1;
-  }
-  to {
-    opacity: 0.35;
-  }
+  0%, 100% { opacity: 0.15; }
+  50% { opacity: 0.4; }
 }
 
-/* Search */
+/* =========================
+   TITLE (GALAXY TEXT)
+========================= */
+h1 {
+  text-align: center;
+  font-size: 4rem;
+  margin-top: 25px;
+
+  background: linear-gradient(
+    90deg,
+    #7c3aed,
+    #00d9ff,
+    #ffffff,
+    #ff2bd6,
+    #7c3aed
+  );
+  background-size: 400%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  animation: galaxyFlow 10s linear infinite;
+  text-shadow: 0 0 40px rgba(0,217,255,0.15);
+}
+
+@keyframes galaxyFlow {
+  0% { background-position: 0%; }
+  100% { background-position: 400%; }
+}
+
+/* =========================
+   SEARCH BAR (HOLOGRAM STYLE)
+========================= */
 #searchInput {
   display: block;
   width: 100%;
-  max-width: 500px;
+  max-width: 520px;
   margin: 30px auto;
   padding: 18px;
-  border: 2px solid rgba(255,255,255,0.1);
-  border-radius: 15px;
-  background: rgba(0,0,0,0.4);
+
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+
+  background: rgba(0,0,0,0.35);
   color: white;
-  font-size: 22px;
+  font-size: 20px;
   text-align: center;
-  backdrop-filter: blur(15px);
+
+  backdrop-filter: blur(18px);
   outline: none;
+
+  transition: 0.3s ease;
 }
 
 #searchInput:focus {
   border-color: var(--accent-color);
   box-shadow:
-    0 0 20px var(--accent-color),
-    0 0 40px rgba(0,217,255,0.4);
+    0 0 25px rgba(0,217,255,0.4),
+    0 0 60px rgba(124,58,237,0.2);
   transform: scale(1.03);
 }
 
-/* Games Container */
+/* =========================
+   GAME GRID
+========================= */
 #gamesContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 20px;
+  gap: 22px;
   padding: 20px;
 }
 
-/* Game Cards */
+/* =========================
+   GAME CARD (HOLOGRAPHIC PANEL)
+========================= */
 .game {
   width: 200px;
-  background: var(--card-color);
-  border: 1px solid rgba(255,255,255,0.1);
-  border-radius: 18px;
+  border-radius: 20px;
   overflow: hidden;
-  backdrop-filter: blur(12px);
-  transition: 0.3s ease;
-  animation: float 5s ease-in-out infinite;
+  position: relative;
+
+  background: var(--card-color);
+  border: 1px solid rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(20px);
+
+  box-shadow:
+    0 0 25px rgba(0,217,255,0.08),
+    inset 0 0 35px rgba(124,58,237,0.08);
+
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* glow sweep effect */
+.game::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at top left, rgba(0,217,255,0.25), transparent 60%);
+  opacity: 0;
+  transition: 0.4s ease;
+}
+
+.game:hover::before {
+  opacity: 1;
 }
 
 .game:hover {
-  transform: translateY(-10px) scale(1.05);
-  border-color: var(--accent-color);
+  transform: translateY(-10px) scale(1.06);
   box-shadow:
-    0 0 20px rgba(0,217,255,0.5),
-    0 0 40px rgba(124,58,237,0.4);
-}
-
-@keyframes float {
-  0%,100% {
-    transform: translateY(0px);
-  }
-  50% {
-    transform: translateY(-6px);
-  }
+    0 0 45px rgba(0,217,255,0.25),
+    0 0 90px rgba(124,58,237,0.15);
 }
 
 .game img {
   width: 100%;
   height: 200px;
   object-fit: cover;
-  transition: 0.4s;
+  transition: 0.4s ease;
 }
 
 .game:hover img {
@@ -157,43 +214,26 @@ body {
   padding: 12px;
   margin: 0;
   font-weight: 600;
-  text-shadow: 0 0 8px rgba(0,217,255,0.6);
+  text-shadow: 0 0 10px rgba(0,217,255,0.6);
 }
 
-/* Title */
-h1 {
-  text-align: center;
-  font-size: 4rem;
-  margin-top: 25px;
-  background: linear-gradient(
-    90deg,
-    #00d9ff,
-    #7c3aed,
-    #00d9ff
-  );
-  background-size: 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: glowText 8s linear infinite;
-}
-
-@keyframes glowText {
-  0% { background-position: 0%; }
-  100% { background-position: 300%; }
-}
-
-/* Center */
+/* =========================
+   CENTER HELPERS
+========================= */
 .center {
   display: flex;
   flex-direction: column;
   align-items: center;
 }
 
-/* Footer */
+/* =========================
+   FOOTER
+========================= */
 .footer {
   text-align: center;
   padding: 20px;
   margin-top: 40px;
+  opacity: 0.8;
 }
 
 .link {
@@ -202,10 +242,29 @@ h1 {
 }
 
 .link:hover {
-  text-shadow: 0 0 10px var(--accent-color);
+  text-shadow: 0 0 12px var(--accent-color);
 }
 
-/* Mobile */
+/* =========================
+   SCROLLBAR (CHROME + FIREFOX)
+========================= */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(var(--accent-color), var(--accent2-color));
+  border-radius: 10px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--accent-color) transparent;
+}
+
+/* =========================
+   MOBILE
+========================= */
 @media (max-width: 600px) {
   .game {
     width: 160px;
