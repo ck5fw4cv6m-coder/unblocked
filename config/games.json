@@ -692,8 +692,8 @@
   {
     "name": "Geo Dash",
     "image": "geoscratchicon.png",
-    "url": "geodash",
-    "new": false
+    "url": "https://geodashh.jellyfinn.workers.dev/",
+    "new": true
   },
   {
     "name": "George and the Printer",
