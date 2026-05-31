@@ -1,40 +1,90 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Home</title>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loading Game...</title>
 
-    <script src="config/main.js" type="module"></script>
-    <style>
-      body {
-        margin: 0;
-        padding: 0;
-      }
+  <script src="config/main.js" type="module"></script>
 
-      iframe {
-        width: 100%;
-        height: 100vh;
-        border: none;
-      }
-    </style>
-  </head>
-  <body>
-    <iframe id="gameFrame"></iframe>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <script>
-      var serverUrl1 = "https://gms.parcoil.com";
-      const queryString = window.location.search;
-      const urlParams = new URLSearchParams(queryString);
-      const gameUrl = urlParams.get("gameurl");
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      background: #000;
+    }
 
-      if (!gameUrl) {
-        alert("Game URL not provided!");
-        window.location.href = "/"; // Redirect to homepage if game URL is missing
-      } else {
-        const embedUrl = `${serverUrl1}/${gameUrl}`;
-        document.getElementById("gameFrame").src = embedUrl;
-      }
-    </script>
-  </body>
+    iframe {
+      width: 100%;
+      height: 100vh;
+      border: none;
+    }
+
+    .loading {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      color: white;
+      font-family: Arial, sans-serif;
+      background: #000;
+      z-index: 9999;
+    }
+  </style>
+</head>
+<body>
+
+<div class="loading" id="loading">
+  Loading Game...
+</div>
+
+<iframe id="gameFrame" allowfullscreen></iframe>
+
+<script>
+  const serverUrl1 = "https://gms.parcoil.com";
+
+  const params = new URLSearchParams(window.location.search);
+  const gameUrl = params.get("gameurl");
+
+  const iframe = document.getElementById("gameFrame");
+  const loading = document.getElementById("loading");
+
+  if (!gameUrl) {
+    alert("Game URL not provided!");
+    window.location.href = "/";
+  } else {
+
+    const isExternal =
+      gameUrl.startsWith("http://") ||
+      gameUrl.startsWith("https://");
+
+    if (isExternal) {
+
+      // Open external URLs directly
+      window.location.href = gameUrl;
+
+    } else {
+
+      // Load local games from gms.parcoil.com
+      const embedUrl = `${serverUrl1}/${gameUrl}`;
+
+      iframe.onload = () => {
+        loading.style.display = "none";
+      };
+
+      iframe.src = embedUrl;
+    }
+  }
+</script>
+
+</body>
 </html>
