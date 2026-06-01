@@ -654,6 +654,12 @@
     "new": false
   },
   {
+    "name": "Five Nights at Epstein's (FNAE)",
+    "image": "https://imgs.search.brave.com/8TWhYeBEQc6oD4Qn9RZdow5g3GvWxIRbStFPfbKv5DY/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90b3Bn/YW1lcy5nZy9kYXRh/L2ltYWdlL2dhbWUv/Zml2ZS1uaWdodHMt/YXQtZXBzdGVpbnMu/cG5n",
+    "url": "https://fnae.jellyfinn.workers.dev/",
+    "new": false
+  },
+  {
     "name": "Friday Night Funkin'",
     "image": "fnf-icon.jpg",
     "url": "fridaynightfunkin",
