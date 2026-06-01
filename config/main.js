@@ -17,57 +17,89 @@ document.title = `${currentPageTitle} | ${sitename}`;
 
 let gamesData = [];
 
-function displayFilteredGames(filteredGames) {
+function createGameCard(game) {
+  const gameDiv = document.createElement("div");
+  gameDiv.classList.add("game");
+
+  const gameImage = document.createElement("img");
+
+  const isExternal =
+    typeof game.url === "string" &&
+    (game.url.startsWith("https://") ||
+      game.url.startsWith("http://"));
+
+  if (isExternal) {
+    gameImage.src = game.image;
+  } else {
+    gameImage.src = `${serverUrl1}/${game.url}/${game.image}`;
+  }
+
+  gameImage.alt = game.name;
+
+  gameImage.onerror = () => {
+    gameImage.src = "https://via.placeholder.com/200x200?text=Game";
+  };
+
+  gameImage.onclick = () => {
+    if (isExternal) {
+      window.location.href = game.url;
+    } else {
+      window.location.href =
+        `play.html?gameurl=${encodeURIComponent(game.url + "/")}`;
+    }
+  };
+
+  const gameName = document.createElement("p");
+  gameName.textContent = game.name;
+
+  if (game.new === true) {
+    gameName.innerHTML += " 🔥";
+  }
+
+  gameDiv.appendChild(gameImage);
+  gameDiv.appendChild(gameName);
+
+  return gameDiv;
+}
+
+function displayGames(filteredGames) {
   const gamesContainer = document.getElementById("gamesContainer");
   gamesContainer.innerHTML = "";
 
-  filteredGames.forEach((game) => {
-    const gameDiv = document.createElement("div");
-    gameDiv.classList.add("game");
+  const newGames = filteredGames.filter(game => game.new === true);
+  const regularGames = filteredGames.filter(game => !game.new);
 
-    const gameImage = document.createElement("img");
+  // 🔥 NEW GAMES SECTION
+  if (newGames.length > 0) {
+    const title1 = document.createElement("h2");
+    title1.textContent = "🔥 New Games";
+    title1.className = "section-title";
+    gamesContainer.appendChild(title1);
 
-    const isExternal =
-      typeof game.url === "string" &&
-      (game.url.startsWith("https://") ||
-       game.url.startsWith("http://"));
+    const newGrid = document.createElement("div");
+    newGrid.className = "games-grid";
 
-    // Image source
-    if (isExternal) {
-      gameImage.src = game.image;
-    } else {
-      gameImage.src = `${serverUrl1}/${game.url}/${game.image}`;
-    }
+    newGames.forEach(game => {
+      newGrid.appendChild(createGameCard(game));
+    });
 
-    gameImage.alt = game.name;
+    gamesContainer.appendChild(newGrid);
+  }
 
-    // Fallback image if broken
-    gameImage.onerror = () => {
-      gameImage.src =
-        "https://via.placeholder.com/200x200?text=Game";
-    };
+  // 🎮 ALL GAMES SECTION
+  const title2 = document.createElement("h2");
+  title2.textContent = "🎮 All Games";
+  title2.className = "section-title";
+  gamesContainer.appendChild(title2);
 
-    // Click handler
-    gameImage.onclick = () => {
-      if (isExternal) {
-        window.location.href = game.url;
-      } else {
-        window.location.href =
-          `play.html?gameurl=${encodeURIComponent(game.url + "/")}`;
-      }
-    };
+  const allGrid = document.createElement("div");
+  allGrid.className = "games-grid";
 
-    const gameName = document.createElement("p");
-    gameName.textContent = game.name;
-
-    if (game.new === true) {
-      gameName.innerHTML += " 🔥";
-    }
-
-    gameDiv.appendChild(gameImage);
-    gameDiv.appendChild(gameName);
-    gamesContainer.appendChild(gameDiv);
+  regularGames.forEach(game => {
+    allGrid.appendChild(createGameCard(game));
   });
+
+  gamesContainer.appendChild(allGrid);
 }
 
 function handleSearchInput() {
@@ -76,18 +108,18 @@ function handleSearchInput() {
     .value
     .toLowerCase();
 
-  const filteredGames = gamesData.filter((game) =>
+  const filteredGames = gamesData.filter(game =>
     game.name.toLowerCase().includes(searchInputValue)
   );
 
-  displayFilteredGames(filteredGames);
+  displayGames(filteredGames);
 }
 
 fetch("./config/games.json")
   .then((response) => response.json())
   .then((data) => {
     gamesData = data;
-    displayFilteredGames(data);
+    displayGames(data);
   })
   .catch((error) =>
     console.error("Error fetching games:", error)
