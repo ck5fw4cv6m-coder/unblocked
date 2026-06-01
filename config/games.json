@@ -697,7 +697,7 @@
   },
   {
     "name": "Geo Dash",
-    "image": "geoscratchicon.png",
+    "image": "https://imgs.search.brave.com/VyGRdlwdrrf4d0vaxo_nRVUM3-EnNYYMF-stewzAYQg/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aHVt/Ym5haWwuaW1nYmlu/LmNvbS8xLzkvOC9p/bWdiaW4tZ2VvbWV0/cnktZGFzaC1hbi1p/bXBvc3NpYmxlLWdh/bWUtZG9kZ2UtdGhl/LXNwaWtlcy1mbGlw/LWdyYXZpdHktYW1h/em9uLWNvbS1nZW9t/ZXRyaWNhbC1lYno3/eDRXYmdnSG1DS01K/VExGRnlZRzVQX3Qu/anBn",
     "url": "https://geodashh.jellyfinn.workers.dev/",
     "new": true
   },
