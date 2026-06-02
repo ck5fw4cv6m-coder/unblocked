@@ -1,4 +1,4 @@
-[
+g[
   {
     "name": "1v1lol",
     "image": "logo.png",
@@ -1066,6 +1066,11 @@
     "image": "assets/icon.jpeg",
     "url": "om-bounce",
     "new": false
+  },  {
+    "name": "Orange roulette",
+    "image": "https://imgs.search.brave.com/w6WiuEmttwZp37uaF1NTlS39uDsLCqCEg4pwNW3flXw/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9wbGF5/Z2Ftb3IuY29tL2Fw/cC91cGxvYWRzLzIw/MjYvMDQvb3Jhbmdl/LXJvdWxldHRlLTMw/MHgyNjIucG5n",
+    "url": "https://3e3c.org/resources/orange/index.html",
+    "new": true
   },
   {
     "name": "OVO",
