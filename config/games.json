@@ -16,6 +16,12 @@ g[
     "image": "splash.png",
     "url": "1v1space",
     "new": false
+  },  
+  {
+    "name": "Thats not my neighbor",
+    "image": "https://imgs.search.brave.com/jdcQUQEPa2Q8s45Zvi0JylP7DccIsvIXkACAZMIQ4tU/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly90aGF0/c25vdC1teW5laWdo/Ym9yLmlvL2RhdGEv/aW1hZ2UvcG9zdHMv/dGhhdG5vdC1teW5l/aWdoYm9yLWZlYXR1/cmUtaW1hZ2UuanBn",
+    "url": "https://silent-water-6e97.jellyfinn.workers.dev",
+    "new": true
   },
   {
     "name": "10 Minutes Till Dawn",
