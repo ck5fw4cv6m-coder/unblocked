@@ -246,6 +246,12 @@
     "new": false
   },
   {
+    "name": "Buckshot Roulette",
+    "image": "https://imgs.search.brave.com/92D-P-3d97nPB9J7kbI6_hcsOYDkKiU-BmnBC5GJ558/rs:fit:500:0:1:0/g:ce/aHR0cHM6Ly9jZG4u/bW9zLmNtcy5mdXR1/cmVjZG4ubmV0Lzhx/MlhxR3UyVnN3R2J3/dGJhSkdSZlUtMjAw/LTgwLmpwZy53ZWJw",
+    "url": "https://shiny-fog-a8b8.jellyfinn.workers.dev/",
+    "new": true
+  },
+  {
     "name": "Black Hole Square",
     "image": "icon.png",
     "url": "blacholesquare",
